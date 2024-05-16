@@ -137,15 +137,15 @@ function draw() {
       of image transformations made by VIDA.
     */
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////    CAMARAS
-    
+
     push();
     //image(myVida.backgroundImage, 320, 0);
     //image(myVida.differenceImage, 0, 0, windowWidth, windowHeight);
     blendMode(DIFFERENCE);
     fill(255);
-rect(0,0,width,height);
+    rect(0, 0, width, height);
     image(myVida.thresholdImage, 0, 0, windowWidth, windowHeight);
-  
+
 
     image(myVida.currentImage, 0, 0, windowWidth, windowHeight);
 
@@ -185,7 +185,7 @@ rect(0,0,width,height);
       temp_mass_center_x,
       temp_mass_center_y;
 
-  
+
     push(); // store current drawing style and font
     translate(offset_x, offset_y); // translate coords
     // set text style and font
@@ -213,13 +213,13 @@ rect(0,0,width,height);
       }
 
       // draw bounding box
-      strokeWeight(1);
-      stroke(255, 255, 0);
+      strokeWeight(2);
+      stroke(255);
       noFill();
       rect(temp_rect_x, temp_rect_y, temp_rect_w, temp_rect_h);
       // draw mass center
       noStroke();
-      fill(255, 0, 0);
+      fill(255);
       ellipseMode(CENTER);
       // image(miImagen,temp_mass_center_x, temp_mass_center_y); ////////////////////////////////////////////////////////////////
 
@@ -228,20 +228,12 @@ rect(0,0,width,height);
       // ellipse(temp_mass_center_x, temp_mass_center_y, 30, 30); ////////////////////////////////////////////////////////////////
       // print id
       ///  noStroke(); fill(255, 255 , 0);
-      text(temp_blobs[i].id, temp_rect_x, temp_rect_y - 1);
+     // text(temp_blobs[i].id, temp_rect_x, temp_rect_y - 1);
       // draw approximated polygon (if available)
       strokeWeight(1);
-      stroke(255, 0, 0);
+      stroke(255);
       noFill();
-      beginShape();
-      for (var j = 0; j < temp_blobs[i].approximatedPolygon.length; j++) {
-        vertex(
-          temp_blobs[i].approximatedPolygon[j].normX * temp_w,
-          temp_blobs[i].approximatedPolygon[j].normY * temp_h
-        );
-      }
-      endShape(CLOSE);
-    }
+          }
     pop(); // restore memorized drawing style and font
   } else {
     /*
@@ -327,5 +319,5 @@ class Particula {
 
 }
 
-  // This code runs once when an instance is created. this.x = x; this.y = y; this.size = size;
+// This code runs once when an instance is created. this.x = x; this.y = y; this.size = size;
 
