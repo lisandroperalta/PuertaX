@@ -206,9 +206,9 @@ function draw() {
       temp_mass_center_x = Math.floor(temp_blobs[i].normMassCenterX * temp_w);
       temp_mass_center_y = Math.floor(temp_blobs[i].normMassCenterY * temp_h);
 
-      if (temp_blobs[i].isNewFlag == true && misParticulas.length < 500) {
+      if (temp_blobs[i].isNewFlag == true && misParticulas.length < 15) {
         if (frameCount % 5 == 0) {
-          misParticulas.push(new Particula(temp_mass_center_x, temp_mass_center_y, 150));
+          misParticulas.push(new Particula(temp_mass_center_x, temp_mass_center_y, 200));
         }
       }
 
@@ -244,7 +244,7 @@ function draw() {
     background(255, 0, 0);
   }
 
-  if (misParticulas.length >= 150) { //shfalsfahdsgfkhjasgdfkjhagsdfkhjgad
+  if (misParticulas.length >= 5) { //shfalsfahdsgfkhjasgdfkjhagsdfkhjgad
     misParticulas.pop();
   }
   print(misParticulas.length + ":" + frameRate());
@@ -270,7 +270,7 @@ function mouseReleased() {
 }
 
 function agregarParticula() {
-  misParticulas.push(new Particula(mouseX, mouseY, 50));
+  misParticulas.push(new Particula(mouseX, mouseY, 5));
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -290,7 +290,7 @@ class Particula {
     push();
 
 
-    this.vida -= 15;
+    this.vida -= 20;
 
     this.dir += radians(random(-10, 10));
 
