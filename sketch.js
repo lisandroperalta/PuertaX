@@ -15,9 +15,9 @@ function initCaptureDevice() {
     myCapture.hide();
     console.log(
       "[initCaptureDevice] capture ready. Resolution: " +
-      myCapture.width +
-      " " +
-      myCapture.height
+        myCapture.width +
+        " " +
+        myCapture.height
     );
   } catch (_err) {
     console.log("[initCaptureDevice] capture error: " + _err);
@@ -25,7 +25,7 @@ function initCaptureDevice() {
 }
 
 function setup() {
-  miImagen = loadImage('assets/x.png');
+  miImagen = loadImage("assets/x.png");
 
   createCanvas(windowWidth, windowHeight); // we need some space...
 
@@ -146,7 +146,6 @@ function draw() {
     rect(0, 0, width, height);
     image(myVida.thresholdImage, 0, 0, windowWidth, windowHeight);
 
-
     image(myVida.currentImage, 0, 0, windowWidth, windowHeight);
 
     pop();
@@ -185,7 +184,6 @@ function draw() {
       temp_mass_center_x,
       temp_mass_center_y;
 
-
     push(); // store current drawing style and font
     translate(offset_x, offset_y); // translate coords
     // set text style and font
@@ -193,11 +191,8 @@ function draw() {
     textAlign(LEFT, BOTTOM);
     textStyle(NORMAL);
 
-
-
     // let's iterate over all detected blobs and draw them
     for (var i = 0; i < temp_blobs.length; i++) {
-
       // convert norm coords to pixel-based
       temp_rect_x = Math.floor(temp_blobs[i].normRectX * temp_w);
       temp_rect_y = Math.floor(temp_blobs[i].normRectY * temp_h);
@@ -208,7 +203,9 @@ function draw() {
 
       if (temp_blobs[i].isNewFlag == true && misParticulas.length < 15) {
         if (frameCount % 5 == 0) {
-          misParticulas.push(new Particula(temp_mass_center_x, temp_mass_center_y, 200));
+          misParticulas.push(
+            new Particula(temp_mass_center_x, temp_mass_center_y, 200)
+          );
         }
       }
 
@@ -228,12 +225,12 @@ function draw() {
       // ellipse(temp_mass_center_x, temp_mass_center_y, 30, 30); ////////////////////////////////////////////////////////////////
       // print id
       ///  noStroke(); fill(255, 255 , 0);
-     // text(temp_blobs[i].id, temp_rect_x, temp_rect_y - 1);
+      // text(temp_blobs[i].id, temp_rect_x, temp_rect_y - 1);
       // draw approximated polygon (if available)
       strokeWeight(1);
       stroke(255);
       noFill();
-          }
+    }
     pop(); // restore memorized drawing style and font
   } else {
     /*
@@ -244,7 +241,8 @@ function draw() {
     background(255, 0, 0);
   }
 
-  if (misParticulas.length >= 5) { //shfalsfahdsgfkhjasgdfkjhagsdfkhjgad
+  if (misParticulas.length >= 5) {
+    //shfalsfahdsgfkhjasgdfkjhagsdfkhjgad
     misParticulas.pop();
   }
   print(misParticulas.length + ":" + frameRate());
@@ -253,10 +251,7 @@ function draw() {
     misParticulas[i].dibujar();
     if (misParticulas[i].vida < 1) {
       misParticulas.splice(i, 1);
-
-
     }
-
   }
   push();
   blendMode(DIFFERENCE);
@@ -281,7 +276,8 @@ class Particula {
     this.vida = 255;
     this.posX = posX;
     this.posY = posY;
-    this.tamanio = tamanio;
+    this.tamanio = 1;
+    this.tamanioFinal = tamanio;
     this.vel = 4;
     this.dir = random(radians(360));
   }
@@ -289,35 +285,30 @@ class Particula {
   dibujar() {
     push();
 
-
+    if (this.tamanio <= this.tamanioFinal) {
+      this.tamanio +=75;
+    }
     this.vida -= 20;
 
-    this.dir += radians(random(-10, 10));
+    this.dir += radians(random(-35, 35));
 
     let dx = this.vel * cos(this.dir);
     let dy = this.vel * sin(this.dir);
     this.posX += dx;
     this.posY += dy;
 
-    this.posX = (this.posX > width ? this.posX - width : this.posX);
-    this.posX = (this.posX < 0 ? this.posX + width : this.posX);
-    this.posY = (this.posY > height ? this.posY - height : this.posY);
-    this.posY = (this.posY < 0 ? this.posY + height : this.posY);
-    fill(255, 255, 255, this.vida);
-    imageMode(CENTER);
-    buffer1.tint(this.vida);
+    this.posX = this.posX > width ? this.posX - width : this.posX;
+    this.posX = this.posX < 0 ? this.posX + width : this.posX;
+    this.posY = this.posY > height ? this.posY - height : this.posY;
+    this.posY = this.posY < 0 ? this.posY + height : this.posY;
+    //fill(255, 255, 255,255);
+    buffer1.imageMode(CENTER);
+    buffer1.tint(this.vida, 255);
     buffer1.image(miImagen, this.posX, this.posY, this.tamanio, this.tamanio);
 
     // ellipse(this.posX, this.posY, this.tamanio, this.tamanio);
     pop();
-
   }
-
-
-
-
-
 }
 
 // This code runs once when an instance is created. this.x = x; this.y = y; this.size = size;
-
